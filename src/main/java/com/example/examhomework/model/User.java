@@ -1,6 +1,5 @@
 package com.example.examhomework.model;
 
-import com.example.examhomework.model.dto.RegisterRequestDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +20,9 @@ public class User {
     @Column(unique = true)
     private String username;
     private String password;
+    private Double greenDollars = 1000.00;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Sellable> sellableList;
 
     public User(String username, String password) {
         this.username = username;

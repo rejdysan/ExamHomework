@@ -1,8 +1,10 @@
 package com.example.examhomework.service;
 
 import com.example.examhomework.config.JWTService;
+import com.example.examhomework.config.MyUserDetails;
 import com.example.examhomework.model.User;
 import com.example.examhomework.model.dto.ErrorDTO;
+import com.example.examhomework.model.dto.LoginResponseDTO;
 import com.example.examhomework.model.dto.RegisterRequestDTO;
 import com.example.examhomework.model.dto.RegisterResponseDTO;
 import com.example.examhomework.repository.UserRepository;
@@ -45,11 +47,13 @@ public class UserServiceImp implements UserService {
             return ResponseEntity.status(400).body(new ErrorDTO(validation.getAllErrors().get(0).getDefaultMessage()));
         }
         Authentication authentication;
+        MyUserDetails userLogin;
         try {
             authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+            userLogin = (MyUserDetails) authentication.getPrincipal();
         } catch(Exception e) {
             return ResponseEntity.status(400).body(new ErrorDTO("Username or password incorrect"));
         }
-        return ResponseEntity.status(200).body(tokenService.generateToken(authentication));
+        return ResponseEntity.status(200).body(new LoginResponseDTO(tokenService.generateToken(authentication), userLogin.getGreenDollars()));
     }
 }

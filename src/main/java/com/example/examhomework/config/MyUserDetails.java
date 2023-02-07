@@ -12,11 +12,13 @@ public class MyUserDetails implements UserDetails {
     private String username;
     private String password;
     private Long id;
+    private Double greenDollars;
     private List<GrantedAuthority> authorities;
 
     public MyUserDetails(User user) {
         this.username = user.getUsername();
         this.password = user.getPassword();
+        this.greenDollars = user.getGreenDollars();;
         this.id = user.getId();
     }
 
@@ -57,5 +59,9 @@ public class MyUserDetails implements UserDetails {
 
     public Long getId() {
         return id;
+    }
+
+    public Double getGreenDollars() {
+        return greenDollars;
     }
 }
