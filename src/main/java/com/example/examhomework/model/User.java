@@ -22,8 +22,8 @@ public class User {
     private String username;
     private String password;
 
-    public User(RegisterRequestDTO user) {
-        this.username = user.getUsername();
-        this.password = user.getPassword();
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 }
