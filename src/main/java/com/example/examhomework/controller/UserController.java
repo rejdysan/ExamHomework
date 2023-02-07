@@ -1,4 +1,4 @@
-package com.example.examhomework.config;
+package com.example.examhomework.controller;
 
 import com.example.examhomework.model.User;
 import com.example.examhomework.model.dto.RegisterRequestDTO;
@@ -24,4 +24,8 @@ public class UserController {
         return userService.registration(user, validation);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@Valid @RequestBody RegisterRequestDTO user, BindingResult validation) {
+        return userService.login(user, validation);
+    }
 }
