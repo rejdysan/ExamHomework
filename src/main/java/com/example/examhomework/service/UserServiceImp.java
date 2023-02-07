@@ -27,6 +27,7 @@ public class UserServiceImp implements UserService {
     private final BCryptPasswordEncoder bcrypt;
     private final JWTService tokenService;
     private final AuthenticationManager authManager;
+
     @Override
     public ResponseEntity<?> registration(@Valid @RequestBody RegisterRequestDTO user, BindingResult validation) {
         if(validation.hasErrors()) {
@@ -35,7 +36,7 @@ public class UserServiceImp implements UserService {
         User newUser;
         try {
             newUser = userRepository.save(new User(user.getUsername(), bcrypt.encode(user.getPassword())));
-        } catch(Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.status(400).body(new ErrorDTO("User already exists"));
         }
         return ResponseEntity.status(200).body(new RegisterResponseDTO(newUser));
@@ -51,7 +52,7 @@ public class UserServiceImp implements UserService {
         try {
             authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
             userLogin = (MyUserDetails) authentication.getPrincipal();
-        } catch(Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.status(400).body(new ErrorDTO("Username or password incorrect"));
         }
         return ResponseEntity.status(200).body(new LoginResponseDTO(tokenService.generateToken(authentication), userLogin.getGreenDollars()));

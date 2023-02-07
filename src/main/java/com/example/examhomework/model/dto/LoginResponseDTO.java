@@ -1,6 +1,5 @@
 package com.example.examhomework.model.dto;
 
-import com.example.examhomework.model.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

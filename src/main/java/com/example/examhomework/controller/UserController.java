@@ -1,6 +1,5 @@
 package com.example.examhomework.controller;
 
-import com.example.examhomework.model.User;
 import com.example.examhomework.model.dto.RegisterRequestDTO;
 import com.example.examhomework.service.UserService;
 import jakarta.validation.Valid;

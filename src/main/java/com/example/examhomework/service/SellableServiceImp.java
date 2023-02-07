@@ -3,7 +3,6 @@ package com.example.examhomework.service;
 import com.example.examhomework.model.Sellable;
 import com.example.examhomework.model.User;
 import com.example.examhomework.model.dto.ErrorDTO;
-import com.example.examhomework.model.dto.RegisterResponseDTO;
 import com.example.examhomework.model.dto.SellableRequestDTO;
 import com.example.examhomework.model.dto.SellableResponseDTO;
 import com.example.examhomework.repository.SellableRepository;
@@ -22,6 +21,7 @@ public class SellableServiceImp implements SellableService {
 
     private final SellableRepository sellableRepository;
     private final UserRepository userRepository;
+
     @Override
     public ResponseEntity<?> create(SellableRequestDTO sellable, BindingResult validation, String token) {
         if(validation.hasErrors()) {
