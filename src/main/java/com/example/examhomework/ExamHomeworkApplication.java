@@ -15,8 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @RequiredArgsConstructor
 public class ExamHomeworkApplication implements CommandLineRunner {
 
-    UserRepository userRepository;
-    BCryptPasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public static void main(String[] args) {
         SpringApplication.run(ExamHomeworkApplication.class, args);
@@ -24,7 +24,7 @@ public class ExamHomeworkApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if(!userRepository.existsById(1L)) {
+        if(userRepository.findAll().isEmpty()) {
             userRepository.save(new User("rejdysan", passwordEncoder.encode("Password1!")));
             userRepository.save(new User("misko", passwordEncoder.encode("Password1!")));
         }
