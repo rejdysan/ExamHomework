@@ -2,18 +2,19 @@ package com.example.examhomework.service;
 
 import com.example.examhomework.model.Sellable;
 import com.example.examhomework.model.User;
-import com.example.examhomework.model.dto.ErrorDTO;
-import com.example.examhomework.model.dto.SellableRequestDTO;
-import com.example.examhomework.model.dto.SellableResponseDTO;
+import com.example.examhomework.model.dto.*;
 import com.example.examhomework.repository.SellableRepository;
 import com.example.examhomework.repository.UserRepository;
 import com.example.examhomework.util.TokenDecoder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.net.URL;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -40,5 +41,20 @@ public class SellableServiceImp implements SellableService {
         }
         Sellable newSellable = sellableRepository.save(new Sellable(sellable, user));
         return ResponseEntity.status(200).body(new SellableResponseDTO(newSellable));
+    }
+
+    @Override
+    public ResponseEntity<?> listPaginated(Integer page) {
+        if(page == null) page = 1;
+        Pageable paging = PageRequest.of(page - 1, 20);
+        List<SellableListResponseDTO> list = sellableRepository.findAll_ListDTO(paging);
+        return ResponseEntity.status(200).body(list);
+    }
+
+    @Override
+    public ResponseEntity<?> getSingleSellable(Long id) {
+        Sellable item = sellableRepository.findById(id).get();
+        if(item == null) return ResponseEntity.status(404).body(new ErrorDTO("Item was not found"));
+        return ResponseEntity.status(200).body(new SellableSingleResponseDTO(item));
     }
 }

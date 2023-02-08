@@ -38,18 +38,17 @@ public class SecurityConfig {
     private final JWTRsaKeyProperties jwtRsaKeyProperties;
 
     @Bean
+    public BCryptPasswordEncoder bcrypt() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     public AuthenticationManager authenticationManager(MyUserDetailsService myUserDetailsService) {
         var authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(myUserDetailsService);
         authenticationProvider.setPasswordEncoder(bcrypt());
         return new ProviderManager(authenticationProvider);
     }
-
-    @Bean
-    public BCryptPasswordEncoder bcrypt() {
-        return new BCryptPasswordEncoder();
-    }
-
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -63,7 +62,7 @@ public class SecurityConfig {
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                 response.getWriter().write(
-                    "{\"error\":\"You have provided empty/invalid token, provided empty/null url request parameter or your role is not authorized!\"}");
+                    "{\"error\":\"You have provided empty/invalid token!\"}");
             })
             .and()
             .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)

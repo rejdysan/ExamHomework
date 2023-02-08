@@ -23,6 +23,8 @@ public class User {
     private Double greenDollars = 1000.00;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Sellable> sellableList;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Bid> bids;
 
     public User(String username, String password) {
         this.username = username;
