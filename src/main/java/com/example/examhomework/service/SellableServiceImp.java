@@ -25,9 +25,7 @@ public class SellableServiceImp implements SellableService {
 
     @Override
     public ResponseEntity<?> create(SellableRequestDTO sellable, BindingResult validation, String token) {
-        if(validation.hasErrors()) {
-            return ResponseEntity.status(400).body(new ErrorDTO(validation.getAllErrors().get(0).getDefaultMessage()));
-        }
+        if(validation.hasErrors()) return ResponseEntity.status(400).body(new ErrorDTO(validation.getAllErrors().get(0).getDefaultMessage()));
         try {
             new URL(sellable.getImageUrl()).toURI();
         } catch (Exception e) {
@@ -37,14 +35,20 @@ public class SellableServiceImp implements SellableService {
         try {
             user = userRepository.findById(TokenDecoder.decodeJWT(token).getId()).get();
         } catch (Exception e) {
-            return ResponseEntity.status(401).body(new ErrorDTO("Access denied due to invalid token"));
+            return ResponseEntity.status(401).body(new ErrorDTO("User does not exist or access denied due to invalid token"));
         }
         Sellable newSellable = sellableRepository.save(new Sellable(sellable, user));
         return ResponseEntity.status(200).body(new SellableResponseDTO(newSellable));
     }
 
     @Override
-    public ResponseEntity<?> listPaginated(Integer page) {
+    public ResponseEntity<?> listPaginated(Integer page, String token) {
+        User user;
+        try {
+            user = userRepository.findById(TokenDecoder.decodeJWT(token).getId()).get();
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body(new ErrorDTO("User does not exist or access denied due to invalid token"));
+        }
         if(page == null) page = 1;
         Pageable paging = PageRequest.of(page - 1, 20);
         List<SellableListResponseDTO> list = sellableRepository.findAll_ListDTO(paging);
@@ -52,9 +56,19 @@ public class SellableServiceImp implements SellableService {
     }
 
     @Override
-    public ResponseEntity<?> getSingleSellable(Long id) {
-        Sellable item = sellableRepository.findById(id).get();
-        if(item == null) return ResponseEntity.status(404).body(new ErrorDTO("Item was not found"));
+    public ResponseEntity<?> getSingleSellable(Long id, String token) {
+        User user;
+        try {
+            user = userRepository.findById(TokenDecoder.decodeJWT(token).getId()).get();
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body(new ErrorDTO("User does not exist or access denied due to invalid token"));
+        }
+        Sellable item;
+        try {
+            item = sellableRepository.findById(id).get();
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body(new ErrorDTO("Item was not found"));
+        }
         return ResponseEntity.status(200).body(new SellableSingleResponseDTO(item));
     }
 }

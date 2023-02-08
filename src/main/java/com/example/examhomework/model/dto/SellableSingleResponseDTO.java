@@ -1,13 +1,11 @@
 package com.example.examhomework.model.dto;
 
-import com.example.examhomework.model.Bid;
 import com.example.examhomework.model.Sellable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Comparator;
 import java.util.List;
 
 @Getter
@@ -31,6 +29,6 @@ public class SellableSingleResponseDTO {
         this.bids = sellable.getBids().stream().map(BidDTO::new).toList();
         this.purchasePrice = sellable.getPurchasePrice();
         this.seller = sellable.getUser().getUsername();
-        this.buyer = (sellable.isSellable()) ? "NOT SOLD YET" : sellable.getBids().stream().max(Comparator.comparing(Bid::getValue)).get().getUser().getUsername();
+        this.buyer = (sellable.getBuyer() == null) ? "NOT SOLD YET - auction still ongoing" : sellable.getBuyer().getUsername();
     }
 }

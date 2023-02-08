@@ -20,8 +20,9 @@ public class BidController {
         @Min(value = 1, message = "Bid value must be larger than 0")
         @RequestParam(name = "value") Long value,
         @Min(value = 1, message = "Item ID must be positive integer larger than 0")
-        @PathVariable("id") Long id
+        @PathVariable("id") Long id,
+        @RequestHeader("authorization") String token
     ) {
-        return bidService.createBid(id, value);
+        return bidService.createBid(id, value, token);
     }
 }

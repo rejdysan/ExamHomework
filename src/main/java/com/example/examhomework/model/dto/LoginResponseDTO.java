@@ -13,5 +13,5 @@ import lombok.Setter;
 public class LoginResponseDTO {
     private String token;
     @JsonProperty(value = "green_dollars")
-    private Double greenDollars;
+    private Long greenDollars;
 }

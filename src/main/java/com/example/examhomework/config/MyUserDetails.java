@@ -11,7 +11,7 @@ public class MyUserDetails implements UserDetails {
     private String username;
     private String password;
     private Long id;
-    private Double greenDollars;
+    private Long greenDollars;
     private List<GrantedAuthority> authorities;
 
     public MyUserDetails(User user) {
@@ -61,7 +61,7 @@ public class MyUserDetails implements UserDetails {
         return id;
     }
 
-    public Double getGreenDollars() {
+    public Long getGreenDollars() {
         return greenDollars;
     }
 }

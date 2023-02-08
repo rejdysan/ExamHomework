@@ -34,11 +34,13 @@ public class Sellable {
     private String imageUrl;
     private Long startingPrice;
     private Long purchasePrice;
-    private boolean isSellable = false;
+    private boolean isSellable = true;
     @ManyToOne
     private User user;
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "sellable", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Bid> bids;
+    @ManyToOne
+    private User buyer;
 
     public Sellable(SellableRequestDTO sellable, User user) {
         this.name = sellable.getName();
@@ -47,5 +49,10 @@ public class Sellable {
         this.startingPrice = sellable.getStartingPrice().longValue();
         this.purchasePrice = sellable.getPurchasePrice().longValue();
         this.user = user;
+    }
+
+    public void addBid(Bid bid) {
+        getBids().add(bid);
+        setBids(getBids());
     }
 }

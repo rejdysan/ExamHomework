@@ -4,5 +4,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface BidService {
 
-    ResponseEntity<?> createBid(Long id, Long value);
+    ResponseEntity<?> createBid(Long id, Long value, String token);
 }

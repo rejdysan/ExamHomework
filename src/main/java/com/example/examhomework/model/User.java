@@ -20,11 +20,13 @@ public class User {
     @Column(unique = true)
     private String username;
     private String password;
-    private Double greenDollars = 1000.00;
+    private Long greenDollars = 50000L;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Sellable> sellableList;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Bid> bids;
+    @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Sellable> boughtList;
 
     public User(String username, String password) {
         this.username = username;

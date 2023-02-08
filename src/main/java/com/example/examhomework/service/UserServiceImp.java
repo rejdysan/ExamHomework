@@ -30,9 +30,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public ResponseEntity<?> registration(@Valid @RequestBody RegisterRequestDTO user, BindingResult validation) {
-        if(validation.hasErrors()) {
-            return ResponseEntity.status(400).body(new ErrorDTO(validation.getAllErrors().get(0).getDefaultMessage()));
-        }
+        if(validation.hasErrors()) return ResponseEntity.status(400).body(new ErrorDTO(validation.getAllErrors().get(0).getDefaultMessage()));
         User newUser;
         try {
             newUser = userRepository.save(new User(user.getUsername(), bcrypt.encode(user.getPassword())));
@@ -44,9 +42,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public ResponseEntity<?> login(@Valid @RequestBody RegisterRequestDTO user, BindingResult validation) {
-        if(validation.hasErrors()) {
-            return ResponseEntity.status(400).body(new ErrorDTO(validation.getAllErrors().get(0).getDefaultMessage()));
-        }
+        if(validation.hasErrors()) return ResponseEntity.status(400).body(new ErrorDTO(validation.getAllErrors().get(0).getDefaultMessage()));
         Authentication authentication;
         MyUserDetails userLogin;
         try {

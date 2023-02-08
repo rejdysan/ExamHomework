@@ -13,4 +13,6 @@ public class SellableListResponseDTO {
     private String name;
     @JsonProperty(value = "image_url")
     private String imageUrl;
+    @JsonProperty(value = "last_bid")
+    private Long lastBid;
 }

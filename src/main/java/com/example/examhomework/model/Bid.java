@@ -18,7 +18,13 @@ public class Bid {
     private Long id;
     private Long value;
     @ManyToOne
-    private Sellable item;
+    private Sellable sellable;
     @ManyToOne
     private User user;
+
+    public Bid(Long value, Sellable sellable, User user) {
+        this.value = value;
+        this.sellable = sellable;
+        this.user = user;
+    }
 }

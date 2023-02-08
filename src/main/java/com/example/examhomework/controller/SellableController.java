@@ -30,16 +30,18 @@ public class SellableController {
     @GetMapping("/sellable")
     public ResponseEntity<?> sellablePage(
         @Min(value = 1, message = "Page number must be integer larger than 0")
-        @RequestParam(name = "page", required = false) Integer page
+        @RequestParam(name = "page", required = false) Integer page,
+        @RequestHeader("authorization") String token
     ) {
-        return sellableService.listPaginated(page);
+        return sellableService.listPaginated(page, token);
     }
 
     @GetMapping("/sellable/{id}")
     public ResponseEntity<?> singleSellable(
         @Min(value = 1, message = "Sellable ID must be larger than 0")
-        @PathVariable("id") Long id
+        @PathVariable("id") Long id,
+        @RequestHeader("authorization") String token
     ) {
-        return sellableService.getSingleSellable(id);
+        return sellableService.getSingleSellable(id, token);
     }
 }

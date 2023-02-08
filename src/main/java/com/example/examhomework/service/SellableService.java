@@ -8,7 +8,7 @@ import org.springframework.validation.BindingResult;
 public interface SellableService {
     ResponseEntity<?> create(SellableRequestDTO sellable, BindingResult validation, String token);
 
-    ResponseEntity<?> listPaginated(Integer page);
+    ResponseEntity<?> listPaginated(Integer page, String token);
 
-    ResponseEntity<?> getSingleSellable(Long id);
+    ResponseEntity<?> getSingleSellable(Long id, String token);
 }
