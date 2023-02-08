@@ -24,7 +24,7 @@ public class ExamHomeworkApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if(userRepository.findAll().isEmpty()) {
+        if(userRepository.findAll() == null) {
             userRepository.save(new User("rejdysan", passwordEncoder.encode("Password1!")));
             userRepository.save(new User("rejdysan2", passwordEncoder.encode("Password1!")));
         }
