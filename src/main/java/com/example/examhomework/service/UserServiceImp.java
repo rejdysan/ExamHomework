@@ -8,6 +8,7 @@ import com.example.examhomework.model.dto.LoginResponseDTO;
 import com.example.examhomework.model.dto.RegisterRequestDTO;
 import com.example.examhomework.model.dto.RegisterResponseDTO;
 import com.example.examhomework.repository.UserRepository;
+import com.example.examhomework.util.TokenDecoder;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -52,5 +53,18 @@ public class UserServiceImp implements UserService {
             return ResponseEntity.status(400).body(new ErrorDTO("Username or password incorrect"));
         }
         return ResponseEntity.status(200).body(new LoginResponseDTO(tokenService.generateToken(authentication), userLogin.getGreenDollars()));
+    }
+
+    @Override
+    public ResponseEntity<?> topup(Long amount, String token) {
+        User user;
+        try {
+            user = userRepository.findById(TokenDecoder.decodeJWT(token).getId()).get();
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body(new ErrorDTO("User does not exist or access denied due to invalid token"));
+        }
+        user.setGreenDollars(user.getGreenDollars() + amount);
+        userRepository.save(user);
+        return ResponseEntity.status(200).body(new RegisterResponseDTO(user));
     }
 }

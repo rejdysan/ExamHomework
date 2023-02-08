@@ -1,6 +1,7 @@
 package com.example.examhomework;
 
 import com.example.examhomework.config.JWTRsaKeyProperties;
+import com.example.examhomework.model.User;
 import com.example.examhomework.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -23,9 +24,9 @@ public class ExamHomeworkApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        if(userRepository.findAll() == null) {
-//            userRepository.save(new User("rejdysan", passwordEncoder.encode("Password1!")));
-//            userRepository.save(new User("rejdysan2", passwordEncoder.encode("Password1!")));
-//        }
+        if(!userRepository.existsById(1L)) {
+            userRepository.save(new User("rejdysan", passwordEncoder.encode("Password1!")));
+            userRepository.save(new User("misko", passwordEncoder.encode("Password1!")));
+        }
     }
 }

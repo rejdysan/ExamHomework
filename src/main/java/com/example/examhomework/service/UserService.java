@@ -8,4 +8,6 @@ public interface UserService {
     ResponseEntity<?> registration(RegisterRequestDTO user, BindingResult validation);
 
     ResponseEntity<?> login(RegisterRequestDTO user, BindingResult validation);
+
+    ResponseEntity<?> topup(Long amount, String token);
 }
