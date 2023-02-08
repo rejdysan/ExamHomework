@@ -52,6 +52,7 @@ public class SellableServiceImp implements SellableService {
         if(page == null) page = 1;
         Pageable paging = PageRequest.of(page - 1, 20);
         List<SellableListResponseDTO> list = sellableRepository.findAll_ListDTO(paging);
+        if(list.isEmpty()) return ResponseEntity.status(400).body(new ErrorDTO("No items found for requested page"));
         return ResponseEntity.status(200).body(list);
     }
 

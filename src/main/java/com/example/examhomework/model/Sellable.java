@@ -13,13 +13,21 @@ import java.util.List;
     @NamedNativeQuery(name = "Sellable.findAll_ListDTO",
         query = "SELECT s.id as id," +
             "s.name as name," +
-            "s.image_url as imageUrl " +
-            "FROM sellable s WHERE is_sellable = 1",
+            "s.image_url as imageUrl," +
+            "   (SELECT max(b.value) " +
+            "   FROM bid b " +
+            "   WHERE b.sellable_id = s.id " +
+            "   GROUP BY b.sellable_id) as lastBid " +
+            "FROM sellable s " +
+            "WHERE s.is_sellable = 1",
         resultSetMapping = "Mapping.SellableListResponseDTO")
 })
 @SqlResultSetMapping(name = "Mapping.SellableListResponseDTO",
     classes = @ConstructorResult(targetClass = SellableListResponseDTO.class,
-        columns = {@ColumnResult(name = "id"), @ColumnResult(name = "name"), @ColumnResult(name = "imageUrl")})
+        columns = {@ColumnResult(name = "id"),
+            @ColumnResult(name = "name"),
+            @ColumnResult(name = "imageUrl"),
+            @ColumnResult(name = "lastBid")})
 )
 @Entity
 @Getter
