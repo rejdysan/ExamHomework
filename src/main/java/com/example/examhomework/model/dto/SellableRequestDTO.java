@@ -17,9 +17,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SellableRequestDTO {
-    @NotBlank(message = "Field name was empty!")
-    @NotNull(message = "Field name was null!")
-    private String name;
+    @NotBlank(message = "Field title was empty!")
+    @NotNull(message = "Field title was null!")
+    private String title;
     @NotBlank(message = "Field description was empty!")
     @NotNull(message = "Field description was null!")
     private String description;

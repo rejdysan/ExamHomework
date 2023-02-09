@@ -16,14 +16,14 @@ public class Bid {
     @Id
     @GeneratedValue
     private Long id;
-    private Long value;
+    private Long amount;
     @ManyToOne
     private Sellable sellable;
     @ManyToOne
     private User user;
 
     public Bid(Long value, Sellable sellable, User user) {
-        this.value = value;
+        this.amount = value;
         this.sellable = sellable;
         this.user = user;
     }

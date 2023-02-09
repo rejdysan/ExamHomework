@@ -13,7 +13,7 @@ public class BidDTO {
     private String username;
 
     public BidDTO(Bid bid) {
-        this.value = bid.getValue();
+        this.value = bid.getAmount();
         this.username = bid.getUser().getUsername();
     }
 }

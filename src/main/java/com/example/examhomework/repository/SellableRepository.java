@@ -8,9 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface SellableRepository extends JpaRepository<Sellable, Long>, PagingAndSortingRepository<Sellable, Long> {
     @Query(nativeQuery = true)
     List<SellableListResponseDTO> findAll_ListDTO(Pageable pageable);
+
+    Optional<Sellable> findById(Long id);
 }

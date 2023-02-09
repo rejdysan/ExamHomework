@@ -1,5 +1,6 @@
 package com.example.examhomework.controller;
 
+import com.example.examhomework.model.Bid;
 import com.example.examhomework.model.Sellable;
 import com.example.examhomework.model.User;
 import com.example.examhomework.model.dto.LoginRequestDTO;
@@ -57,6 +58,8 @@ public class SellableControllerTest {
             new BigDecimal(5000)
         );
         Sellable newSellable = sellableRepository.save(new Sellable(sellable, newUser));
+        Bid newBid = new Bid(1000L, newSellable, newUser);
+        bidRepository.save(newBid);
     }
 
     @Test
@@ -86,7 +89,7 @@ public class SellableControllerTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(2))
-            .andExpect(jsonPath("$.name").value("another another smelly sock"))
+            .andExpect(jsonPath("$.title").value("another another smelly sock"))
             .andExpect(jsonPath("$.description").value("also smells horribly but it is made of gold and diamonds"))
             .andExpect(jsonPath("$.user").value("test user"))
             .andExpect(jsonPath("$.image_url").value("https://media.istockphoto.com/id/1324849113/photo/white-cotton-socks-on-white-background.jpg?s=612x612&w=0&k=20&c=MkoOYXjQO_en1EtROpj6lPD6SmYvm-dGhwBlTVAaijo="))
@@ -139,7 +142,7 @@ public class SellableControllerTest {
                 .header("authorization", "Bearer " + token))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("$.name").value("nice smelling sock"))
+            .andExpect(jsonPath("$.title").value("nice smelling sock"))
             .andExpect(jsonPath("$.description").value("smells like heaven"))
             .andExpect(jsonPath("$.bids").exists())
             .andExpect(jsonPath("$.seller").value("test user"))
@@ -184,7 +187,7 @@ public class SellableControllerTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$", Matchers.hasSize(2)))
-            .andExpect(jsonPath("$.[0].name").value("another another smelly sock"))
+            .andExpect(jsonPath("$.[0].title").value("another another smelly sock"))
             .andExpect(jsonPath("$.[0].description").value("also smells horribly but it is made of gold and diamonds"))
             .andExpect(jsonPath("$.[0].purchase_price").value(2000))
             .andExpect(jsonPath("$.[1].name").value("nice smelling sock"))

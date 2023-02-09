@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class SellableSingleResponseDTO {
-    private String name;
+    private String title;
     private String description;
     @JsonProperty(value = "image_url")
     private String imageUrl;
@@ -23,7 +23,7 @@ public class SellableSingleResponseDTO {
     private String buyer;
 
     public SellableSingleResponseDTO(Sellable sellable) {
-        this.name = sellable.getName();
+        this.title = sellable.getTitle();
         this.description = sellable.getDescription();
         this.imageUrl = sellable.getImageUrl();
         this.bids = sellable.getBids().stream().map(BidDTO::new).toList();

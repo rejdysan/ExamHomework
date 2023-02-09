@@ -29,17 +29,19 @@ public class BidServiceImp implements BidService {
         } catch (Exception e) {
             return ResponseEntity.status(401).body(new ErrorDTO("User does not exist or access denied due to invalid token"));
         }
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         Sellable item;
         try {
             item = sellableRepository.findById(id).get();
         } catch (Exception e) {
             return ResponseEntity.status(404).body(new ErrorDTO("Item not found"));
         }
+        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
         if(!item.isSellable()) return ResponseEntity.status(400).body(new ErrorDTO("Item is not for sale"));
         if(user == item.getUser()) return ResponseEntity.status(400).body(new ErrorDTO("Cannot bid on your own item"));
         if(user.getGreenDollars() < value) return ResponseEntity.status(400).body(new ErrorDTO("Not enough green dollars for the bid"));
         if(value <= item.getStartingPrice()) return ResponseEntity.status(400).body(new ErrorDTO("Bid is equal or lower as starting price"));
-        if(!item.getBids().isEmpty() && value <= item.getBids().get(item.getBids().size() - 1).getValue()) return ResponseEntity.status(400).body(new ErrorDTO("Bid is too low for the highest bid"));
+        if(!item.getBids().isEmpty() && value <= item.getBids().get(item.getBids().size() - 1).getAmount()) return ResponseEntity.status(400).body(new ErrorDTO("Bid is too low for the highest bid"));
         Bid newBid = new Bid(value, item, user);
         if(value > item.getPurchasePrice()) {
             item.setBuyer(user);

@@ -12,9 +12,9 @@ import java.util.List;
 @NamedNativeQueries({
     @NamedNativeQuery(name = "Sellable.findAll_ListDTO",
         query = "SELECT s.id as id," +
-            "s.name as name," +
+            "s.title as title," +
             "s.image_url as imageUrl," +
-            "   (SELECT max(b.value) " +
+            "   (SELECT MAX(b.amount) " +
             "   FROM bid b " +
             "   WHERE b.sellable_id = s.id " +
             "   GROUP BY b.sellable_id) as lastBid " +
@@ -25,7 +25,7 @@ import java.util.List;
 @SqlResultSetMapping(name = "Mapping.SellableListResponseDTO",
     classes = @ConstructorResult(targetClass = SellableListResponseDTO.class,
         columns = {@ColumnResult(name = "id"),
-            @ColumnResult(name = "name"),
+            @ColumnResult(name = "title"),
             @ColumnResult(name = "imageUrl"),
             @ColumnResult(name = "lastBid")})
 )
@@ -37,7 +37,7 @@ public class Sellable {
     @Id
     @GeneratedValue
     private Long id;
-    private String name;
+    private String title;
     private String description;
     private String imageUrl;
     private Long startingPrice;
@@ -51,7 +51,7 @@ public class Sellable {
     private User buyer;
 
     public Sellable(SellableRequestDTO sellable, User user) {
-        this.name = sellable.getName();
+        this.title = sellable.getTitle();
         this.description = sellable.getDescription();
         this.imageUrl = sellable.getImageUrl();
         this.startingPrice = sellable.getStartingPrice().longValue();

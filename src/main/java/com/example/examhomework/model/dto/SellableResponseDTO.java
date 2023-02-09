@@ -12,7 +12,7 @@ import lombok.Setter;
 public class SellableResponseDTO {
 
     private Long id;
-    private String name;
+    private String title;
     private String description;
     @JsonProperty(value = "image_url")
     private String imageUrl;
@@ -24,7 +24,7 @@ public class SellableResponseDTO {
 
     public SellableResponseDTO(Sellable sellable) {
         this.id = sellable.getId();
-        this.name = sellable.getName();
+        this.title = sellable.getTitle();
         this.description = sellable.getDescription();
         this.imageUrl = sellable.getImageUrl();
         this.startingPrice = sellable.getStartingPrice();

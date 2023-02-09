@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SellableListResponseDTO {
     private Long id;
-    private String name;
+    private String title;
     @JsonProperty(value = "image_url")
     private String imageUrl;
     @JsonProperty(value = "last_bid")
