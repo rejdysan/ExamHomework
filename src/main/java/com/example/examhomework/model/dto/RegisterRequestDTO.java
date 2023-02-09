@@ -2,14 +2,14 @@ package com.example.examhomework.model.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class RegisterRequestDTO {
     @Length(min = 5, message = "Username must contain at least 5 characters")
     @NotNull(message = "Username missing from request body")
