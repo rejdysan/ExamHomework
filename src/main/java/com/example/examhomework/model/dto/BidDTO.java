@@ -9,11 +9,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class BidDTO {
-    private Long value;
+    private Long amount;
     private String username;
 
     public BidDTO(Bid bid) {
-        this.value = bid.getAmount();
+        this.amount = bid.getAmount();
         this.username = bid.getUser().getUsername();
     }
 }

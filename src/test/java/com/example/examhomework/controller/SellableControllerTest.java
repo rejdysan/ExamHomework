@@ -187,12 +187,12 @@ public class SellableControllerTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$", Matchers.hasSize(2)))
-            .andExpect(jsonPath("$.[0].title").value("another another smelly sock"))
-            .andExpect(jsonPath("$.[0].description").value("also smells horribly but it is made of gold and diamonds"))
-            .andExpect(jsonPath("$.[0].purchase_price").value(2000))
-            .andExpect(jsonPath("$.[1].name").value("nice smelling sock"))
-            .andExpect(jsonPath("$.[1].description").value("smells like heaven"))
-            .andExpect(jsonPath("$.[1].purchase_price").value(5000));
+            .andExpect(jsonPath("$.[1].title").value("another another smelly sock"))
+            .andExpect(jsonPath("$.[1].image_url").value("https://media.istockphoto.com/id/1324849113/photo/white-cotton-socks-on-white-background.jpg?s=612x612&w=0&k=20&c=MkoOYXjQO_en1EtROpj6lPD6SmYvm-dGhwBlTVAaijo="))
+            .andExpect(jsonPath("$.[1].id").value(2L))
+            .andExpect(jsonPath("$.[0].title").value("nice smelling sock"))
+            .andExpect(jsonPath("$.[0].image_url").value("https://media.istockphoto.com/id/1324849113/photo/white-cotton-socks-on-white-background.jpg?s=612x612&w=0&k=20&c=MkoOYXjQO_en1EtROpj6lPD6SmYvm-dGhwBlTVAaijo="))
+            .andExpect(jsonPath("$.[0].id").value(1L));
     }
 
     @Test

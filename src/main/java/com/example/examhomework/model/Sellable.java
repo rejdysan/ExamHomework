@@ -19,7 +19,7 @@ import java.util.List;
             "   WHERE b.sellable_id = s.id " +
             "   GROUP BY b.sellable_id) as lastBid " +
             "FROM sellable s " +
-            "WHERE s.is_sellable = 1",
+            "WHERE s.is_sellable = true",
         resultSetMapping = "Mapping.SellableListResponseDTO")
 })
 @SqlResultSetMapping(name = "Mapping.SellableListResponseDTO",
