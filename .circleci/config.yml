@@ -1,0 +1,52 @@
+version: 2.1
+
+executors:
+  docker-executor:
+    docker:
+      - image: cimg/openjdk:17.0
+
+commands:
+  restore_cache_cmd:
+    steps:
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "build.gradle" }}
+            - v1-dependencies-
+  save_cache_cmd:
+    steps:
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: v1-dependencies-{{ checksum "build.gradle" }}
+  test:
+    steps:
+      - checkout
+      - restore_cache_cmd
+      - run: ./gradlew test
+      - save_cache_cmd
+  build:
+    steps:
+      - checkout
+      - restore_cache_cmd
+      - run: ./gradlew build -x test
+      - run: ./gradlew checkstyleMain checkstyleTest check
+      - save_cache_cmd
+
+jobs:
+  test-with-docker:
+    executor: docker-executor
+    steps:
+      - test
+
+  build-with-docker:
+    executor: docker-executor
+    steps:
+      - build
+
+workflows:
+  build-then-test-with-docker:
+    jobs:
+      - build-with-docker
+      - test-with-docker:
+          requires:
+            - build-with-docker
