@@ -16,17 +16,26 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registration(@Valid @RequestBody RegisterRequestDTO user, BindingResult validation) {
+    public ResponseEntity<?> registration(
+        @Valid @RequestBody RegisterRequestDTO user,
+        BindingResult validation
+    ) {
         return userService.registration(user, validation);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody RegisterRequestDTO user, BindingResult validation) {
+    public ResponseEntity<?> login(
+        @Valid @RequestBody RegisterRequestDTO user,
+        BindingResult validation
+    ) {
         return userService.login(user, validation);
     }
 
     @PutMapping("/topup")
-    public ResponseEntity<?> topup(@RequestParam("amount") Long amount, @RequestHeader("authorization") String token) {
+    public ResponseEntity<?> topup(
+        @RequestParam("amount") Long amount,
+        @RequestHeader("authorization") String token
+    ) {
         return userService.topup(amount, token);
     }
 }

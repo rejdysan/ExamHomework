@@ -37,6 +37,7 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server:3.0.0'
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    testImplementation 'junit:junit:4.13.2'
 }
 
 tasks.named('test') {

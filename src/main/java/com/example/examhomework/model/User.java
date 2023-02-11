@@ -32,4 +32,11 @@ public class User {
         this.username = username;
         this.password = password;
     }
+
+    public User(Long id, String username, String password, Long greenDollars) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.greenDollars = greenDollars;
+    }
 }
