@@ -50,11 +50,15 @@ public class SellableServiceImp implements SellableService {
         try {
             user = userRepository.findById(TokenDecoder.decodeJWT(token).getId()).get();
         } catch (Exception e) {
-            return ResponseEntity.status(401).body(new ErrorDTO("User does not exist or access denied due to invalid token"));
+            return ResponseEntity.status(401).body(
+                new ErrorDTO("User does not exist or access denied due to invalid token")
+            );
         }
         Pageable paging = PageRequest.of(page - 1, 20);
         List<SellableListResponseDTO> list = sellableRepository.findAll_ListDTO(paging);
-        if(list.isEmpty()) return ResponseEntity.status(400).body(new ErrorDTO("No items found for requested page"));
+        if(list.isEmpty()) return ResponseEntity.status(400).body(
+            new ErrorDTO("No items found for requested page")
+        );
         return ResponseEntity.status(200).body(list);
     }
 
