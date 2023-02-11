@@ -43,9 +43,8 @@ public class SellableServiceImp implements SellableService {
 
     @Override
     public ResponseEntity<?> listPaginated(Integer page, String token) {
-        User user;
         try {
-            user = userRepository.findById(TokenDecoder.decodeJWT(token).getId()).get();
+            userRepository.findById(TokenDecoder.decodeJWT(token).getId()).get();
         } catch (Exception e) {
             return ResponseEntity.status(401).body(new ErrorDTO("User does not exist or access denied due to invalid token"));
         }
@@ -58,9 +57,8 @@ public class SellableServiceImp implements SellableService {
 
     @Override
     public ResponseEntity<?> getSingleSellable(Long id, String token) {
-        User user;
         try {
-            user = userRepository.findById(TokenDecoder.decodeJWT(token).getId()).get();
+            userRepository.findById(TokenDecoder.decodeJWT(token).getId()).get();
         } catch (Exception e) {
             return ResponseEntity.status(401).body(new ErrorDTO("User does not exist or access denied due to invalid token"));
         }

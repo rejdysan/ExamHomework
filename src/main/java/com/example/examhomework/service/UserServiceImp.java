@@ -45,14 +45,12 @@ public class UserServiceImp implements UserService {
     public ResponseEntity<?> login(@Valid @RequestBody RegisterRequestDTO user, BindingResult validation) {
         if(validation.hasErrors()) return ResponseEntity.status(400).body(new ErrorDTO(validation.getAllErrors().get(0).getDefaultMessage()));
         Authentication authentication;
-        MyUserDetails userLogin;
         try {
             authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-            userLogin = (MyUserDetails) authentication.getPrincipal();
         } catch (Exception e) {
             return ResponseEntity.status(400).body(new ErrorDTO("Username or password incorrect"));
         }
-        return ResponseEntity.status(200).body(new LoginResponseDTO(tokenService.generateToken(authentication), userLogin.getGreenDollars()));
+        return ResponseEntity.status(200).body(new LoginResponseDTO(tokenService.generateToken(authentication), ((MyUserDetails) authentication.getPrincipal()).getGreenDollars()));
     }
 
     @Override
