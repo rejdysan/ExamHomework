@@ -62,7 +62,8 @@ public class SellableServiceImp implements SellableService {
         try {
             user = userRepository.findById(TokenDecoder.decodeJWT(token).getId()).get();
         } catch (Exception e) {
-            return ResponseEntity.status(401).body(new ErrorDTO("User does not exist or access denied due to invalid token"));
+            System.out.println("something added");
+            return ResponseEntity.status(401).body(new ErrorDTO("User does not exist or access denied due to invalid token!"));
         }
         Sellable item;
         try {
