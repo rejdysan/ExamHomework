@@ -7,3 +7,4 @@ is built with Spring framework.
 * authentication with JWT token
 * MySQL database
 * including user, sellable and bid entities
+* implemented Docker (app and database)
